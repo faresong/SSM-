@@ -62,18 +62,18 @@
 1. `<context:property-placeholder location="classpath:*.properties"/>` 指定加载以 *.properties 结尾文件
 2. `数据库连接池对象 <bean>` 以 ioc 方式配置连接池对象 DruidDataSource
 3. `MyBatis对象 <bean>` 以 ioc 方式配置 MyBatis对象 SqlSessionFactoryBean
-    3.1. `<property name="dataSource" ref="dataSource"/>` 引用连接池对象 DruidDataSource
-    3.2. `<property name="configLocation" value="classpath:sqlMapConfig.xml"/>` 指定加载的 MyBatis 全局配置文件 **sqlMapConfig.xml**
+	- 3.1. `<property name="dataSource" ref="dataSource"/>` 引用连接池对象 DruidDataSource
+	- 3.2. `<property name="configLocation" value="classpath:sqlMapConfig.xml"/>` 指定加载的 MyBatis 全局配置文件 **sqlMapConfig.xml**
 4. `Mapper扫描器/配置器对象 <bean>` 以 ioc 方式配置 Mapper扫描器/配置器对象 MapperScannerConfigurer
-    4.1. `<property name="basePackage" value="com.taotao.mapper"/>` 扫描 com.taotao.mapper 包下面的所有 MyBatis配置文件
+	- 4.1. `<property name="basePackage" value="com.taotao.mapper"/>` 扫描 com.taotao.mapper 包下面的所有 MyBatis配置文件
 5. `<context:component-scan base-package="com.taotao.service"/>` 扫描com.taotao.service包下面的所有 Spring 注解
 6. `事务管理器对象 <bean>` 管理项目中 service 包下面的事务
-    6.1. <property name="dataSource" ref="dataSource"/> 引用连接池对象 DruidDataSource
+	- 6.1. <property name="dataSource" ref="dataSource"/> 引用连接池对象 DruidDataSource
 7. `<tx:advice id="txAdvice" transaction-manager="transactionManager">` 声明定义一个事务管理器样板
-	7.1. `<tx:attributes>` 该事务管理器样板的属性
-	​	7.1.1. `<tx:method name="save*" isolation="REPEATABLE_READ" propagation="REQUIRED"/>` 指定方法名的该方法所对应的隔离级别、传播行为
-9. `<aop:config>` 面向切面的配置
-	9.1. `<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.taotao.service.*.*(..))"/>` 引用上面已声明的事务管理器样板，并配置切入点 (作用范围) 为 com.taoato.service 包下面的任意方法任意参数，都进行事务管理
+	- 7.1. `<tx:attributes>` 该事务管理器样板的属性
+		- 7.1.1. `<tx:method name="save*" isolation="REPEATABLE_READ" propagation="REQUIRED"/>` 指定方法名的该方法所对应的隔离级别、传播行为
+8. `<aop:config>` 面向切面的配置
+	- 8.1. `<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.taotao.service.*.*(..))"/>` 引用上面已声明的事务管理器样板，并配置切入点 (作用范围) 为 com.taoato.service 包下面的任意方法任意参数，都进行事务管理
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
