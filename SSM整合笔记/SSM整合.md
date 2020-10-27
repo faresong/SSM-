@@ -53,7 +53,7 @@
 </web-app>
 ```
 
-# 2. applicationContext.xml
+## 1.1. applicationContext.xml
 
 路径：/taotao-manager/src/main/resources/applicationContext.xml
 
@@ -192,4 +192,119 @@
     </aop:config>
 </beans>
 ```
+### 1.1.1. db.properties
 
+路径：/taotao-manager/src/main/resources/db.properties
+
+```properties
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/taotao?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+jdbc.username=root
+jdbc.password=123
+jdbc.maxActive=10
+jdbc.minIdle=5
+```
+
+### 1.1.2. log4j.properties
+
+路径：/taotao-manager/src/main/resources/log4j.properties
+
+```properties
+log4j.rootLogger=DEBUG, Console
+#Console
+log4j.appender.Console=org.apache.log4j.ConsoleAppender
+log4j.appender.Console.layout=org.apache.log4j.PatternLayout
+log4j.appender.Console.layout.ConversionPattern=%d [%t] %-5p [%c] - %m%n
+log4j.logger.java.sql.ResultSet=INFO
+log4j.logger.org.apache=INFO
+log4j.logger.java.sql.Connection=DEBUG
+log4j.logger.java.sql.Statement=DEBUG
+log4j.logger.java.sql.PreparedStatement=DEBUG
+```
+
+### 1.1.3. sqlMapConfig.xml
+
+路径：/taotao-manager/src/main/resources/sqlMapConfig.xml
+
+```xml-dtd
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+</configuration>
+```
+
+### 1.1.4. TbItemMapper.xml
+
+路径：/taotao-manager/src/main/java/com/taotao/mapper/TbItemMapper.xml
+
+```xml-dtd
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.taotao.mapper.TbItemMapper">
+    <select id="findTbItemById" parameterType="long" resultType="com.taotao.bean.TbItem">
+        SELECT * FROM tbitem WHERE id = #{id}
+    </select>
+</mapper>
+```
+
+
+
+## 1.2. springmvc.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!-- 扫描带Controller注解的类 -->
+    <context:component-scan base-package="com.taotao.controller" />
+    <!-- 加载注解驱动
+        使用最新的版本
+     -->
+    <mvc:annotation-driven />
+    <!--
+    <mvc:resources location="/js/" mapping="/js/**" />
+    <mvc:resources location="/css/" mapping="/css/**" />
+    <mvc:resources location="/layui/" mapping="/layui/**" />
+    <mvc:resources location="/kindeditor/" mapping="/kindeditor/**" />
+        -->
+    <!-- 视图解析器 -->
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver ">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView" />
+        <!-- jsp前缀 -->
+        <property name="prefix" value="/jsp/" />
+        <!-- jsp后缀 -->
+        <property name="suffix" value=".jsp" />
+    </bean>
+    <!--
+        springmvc上传图片 用他 限制文件大小
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+        <property name="maxUploadSize">
+
+            <value>32505856</value>
+        </property>
+
+    </bean>
+        -->
+
+</beans>
+```
