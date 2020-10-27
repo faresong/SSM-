@@ -226,7 +226,7 @@ log4j.logger.java.sql.PreparedStatement=DEBUG
 
 路径：/taotao-manager/src/main/resources/sqlMapConfig.xml
 
-```xml-dtd
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -239,7 +239,7 @@ log4j.logger.java.sql.PreparedStatement=DEBUG
 
 路径：/taotao-manager/src/main/java/com/taotao/mapper/TbItemMapper.xml
 
-```xml-dtd
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
